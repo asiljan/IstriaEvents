@@ -1,0 +1,2 @@
+rootProject.name = "IstriaEvents"
+include ':app'

@@ -33,9 +33,9 @@ android {
 }
 
 ext {
-    rxJavaVersion = '2.2.19'
-    replayingShareVersion = '2.2.0'
-    rxRelayVersion = '2.1.1'
+    rxjava_version = '2.2.19'
+    replaying_share_version = '2.2.0'
+    rxrelay_version = '2.1.1'
 }
 
 dependencies {
@@ -47,9 +47,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.3.0'
 
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-    implementation "com.jakewharton.rx2:replaying-share:$replayingShareVersion"
-    implementation "com.jakewharton.rxrelay2:rxrelay:$rxRelayVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    implementation "com.jakewharton.rx2:replaying-share:$replaying_share_version"
+    implementation "com.jakewharton.rxrelay2:rxrelay:$rxrelay_version"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

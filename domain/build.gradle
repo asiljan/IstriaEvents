@@ -1,22 +1,44 @@
 plugins {
-    id 'java-library'
-    id 'kotlin'
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_7
-    targetCompatibility = JavaVersion.VERSION_1_7
-}
+android {
+    namespace 'com.siljan.istriaevents.domain'
+    compileSdkVersion 33
 
-ext {
-    rxjava_version = '2.2.19'
-    replaying_share_version = '2.2.0'
-    rxrelay_version = '2.1.1'
+    defaultConfig {
+        applicationId "com.siljan.istriaevents.domain"
+        minSdkVersion 30
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
-    implementation "com.jakewharton.rx2:replaying-share:$replaying_share_version"
-    implementation "com.jakewharton.rxrelay2:rxrelay:$rxrelay_version"
+
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

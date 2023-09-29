@@ -2,4 +2,3 @@ rootProject.name = "IstriaEvents"
 include ':app'
 include ':domain'
 include ':data'
-include ':device'

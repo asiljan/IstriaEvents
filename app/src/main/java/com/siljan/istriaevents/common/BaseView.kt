@@ -1,7 +1,4 @@
-package com.siljan.istriaevents.mvibase
-
-import com.siljan.istriaevents.common.BaseIntent
-import com.siljan.istriaevents.common.BaseViewState
+package com.siljan.istriaevents.common
 
 /**
  * Object representing a UI that will
@@ -11,14 +8,9 @@ import com.siljan.istriaevents.common.BaseViewState
  * @param I Top class of the [BaseIntent] that the [BaseView] will be emitting.
  * @param S Top class of the [BaseViewState] the [BaseView] will be subscribing to.
  */
-interface MviEventView<I : BaseIntent, in S : BaseViewState, E: MviEvent> {
+interface BaseView<I : BaseIntent, in S : BaseViewState> {
     /**
      * Entry point for the [BaseView] to render itself based on a [BaseViewState].
      */
     fun render(state: S)
-
-    /**
-     * Entry point for the [BaseView] to show event based on [MviEvent]
-     */
-    fun events(event: E)
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.siljan.istriaevents">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -8,13 +8,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        tools:replace="android:theme"
         android:theme="@style/Theme.IstriaEvents.NoActionBar">
         <activity
-            android:name=".ui.onboarding.OnboardingActivity"
+            android:name="com.siljan.istriaevents.ui.onboarding.OnboardingActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.splash.SplashScreenActivity"
-            android:theme="@style/Theme.IstriaEvents.Splash">
+            android:name="com.siljan.istriaevents.ui.splash.SplashScreenActivity"
+            android:theme="@style/Theme.IstriaEvents.Splash"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,8 +24,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"></activity>
+            android:name="com.siljan.istriaevents.MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

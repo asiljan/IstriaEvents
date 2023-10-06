@@ -1,6 +1,6 @@
-package com.siljan.istriaevents.mvibase
+package com.siljan.istriaevents.common
 
 /**
  * Immutable object resulting of a processed business logic.
  */
-interface MviResult
+interface BaseResult

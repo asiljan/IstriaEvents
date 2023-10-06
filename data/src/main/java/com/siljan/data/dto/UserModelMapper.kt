@@ -11,7 +11,8 @@ internal interface UserModelMapper {
 
 internal class UserModelMapperImpl : UserModelMapper {
     override fun dataToDomain(user: UserModel): Result<User> {
-        return if (user.userExists) {
+        //TODO implement mappers, this is just mock data
+        return if (user.email.isNotEmpty()) {
             Result.Success(User(true))
         } else {
             Result.Error(UserMissingException())

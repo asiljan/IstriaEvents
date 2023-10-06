@@ -1,15 +1,21 @@
 package com.siljan.istriaevents.ui.splash
 
-import io.reactivex.Observable
+import com.siljan.domain.models.User
+import com.siljan.istriaevents.common.BaseIntent
+import com.siljan.istriaevents.common.BaseResult
+import com.siljan.istriaevents.common.BaseViewState
 
-class SplashReducer {
-    companion object {
-        fun Observable<SplashViewResult>.reduceState(initViewState: SplashViewState): Observable<SplashViewState> =
-            this.scan(initViewState) { previousState, result ->
-                when(result) {
-                    SplashViewResult.User -> previousState.copy(session = true)
-                    SplashViewResult.Guest -> previousState.copy(session = false)
-                }
-            }
-    }
+
+sealed class SplashUIState : BaseViewState {
+    data class UserExists(val username: String) : SplashUIState()
+    object GuestUser : SplashUIState()
+}
+
+sealed class SplashIntent : BaseIntent {
+    object UserAuthenticationCheck : SplashIntent()
+}
+
+sealed class SplashResult : BaseResult {
+    data class UserAuthenticated(val user: User) : SplashResult()
+    object UserAuthenticationFailed : SplashResult()
 }

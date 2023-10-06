@@ -5,7 +5,7 @@ sealed class Result<out T> {
     data class Error<out T>(val throwable: Throwable) : Result<T>()
 }
 
-internal fun <T> Throwable.toDomainError(): Result.Error<T> =
+fun <T> Throwable.toDomainError(): Result.Error<T> =
     Result.Error(this)
 
 class UserMissingException : Throwable("User is not authenticated user")

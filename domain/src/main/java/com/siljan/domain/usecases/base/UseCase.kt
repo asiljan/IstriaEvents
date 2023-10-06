@@ -1,8 +1,8 @@
 package com.siljan.domain.usecases.base
 
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
-internal abstract class UseCase<in Params, R> {
-    abstract fun buildUseCase(params: Params?): Single<R>
-    open fun execute(params: Params? = null): Single<R> = buildUseCase(params)
+abstract class UseCase<in Params, R> {
+    internal abstract fun buildUseCase(params: Params?): Flow<R>
+    open fun execute(params: Params? = null): Flow<R> = buildUseCase(params)
 }

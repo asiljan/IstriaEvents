@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         tools:replace="android:theme"
+        android:name=".IstriaEventsApplication"
         android:theme="@style/Theme.IstriaEvents.NoActionBar">
         <activity
             android:name="com.siljan.istriaevents.ui.onboarding.OnboardingActivity"

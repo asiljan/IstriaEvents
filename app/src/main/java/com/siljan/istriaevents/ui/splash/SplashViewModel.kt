@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siljan.domain.usecases.CheckUserUseCase
 import com.siljan.istriaevents.common.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SplashViewModel(
+@HiltViewModel
+class SplashViewModel @Inject constructor(
     private val checkUserUseCase: CheckUserUseCase
 ) : ViewModel(), BaseViewModel<SplashIntent, SplashUIState> {
 

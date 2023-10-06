@@ -7,14 +7,18 @@ import com.siljan.istriaevents.MainActivity
 import com.siljan.istriaevents.R
 import com.siljan.istriaevents.common.BaseView
 import com.siljan.istriaevents.ui.onboarding.OnboardingActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashScreenActivity : AppCompatActivity(), BaseView<SplashIntent, SplashUIState> {
 
-    private val viewModel: SplashViewModel = ViewModelProvider(this)[SplashViewModel::class.java]
+    private lateinit var viewModel: SplashViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
+
+        viewModel = ViewModelProvider(this)[SplashViewModel::class.java]
 
         viewModel.states().observe(this) {
             render(it)

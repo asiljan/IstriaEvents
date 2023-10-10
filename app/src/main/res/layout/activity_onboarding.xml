@@ -4,15 +4,99 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/dirt_white"
     tools:context=".ui.onboarding.OnboardingActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:adjustViewBounds="true"
+        android:maxWidth="112dp"
+        android:maxHeight="112dp"
+        android:src="@drawable/img_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputTextUsernameLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/five_unit"
+        android:layout_marginEnd="@dimen/five_unit"
+        app:boxStrokeErrorColor="@color/error"
+        app:errorTextColor="@color/error"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputTextUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:inputType="text"
+            android:hint="Enter username"
+            android:textColor="@color/woodsmoke"
+            android:textSize="@dimen/app_text_size_three" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputTextPasswordLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/five_unit"
+        android:layout_marginTop="@dimen/two_unit"
+        android:layout_marginEnd="@dimen/five_unit"
+        app:boxStrokeErrorColor="@color/error"
+        app:errorTextColor="@color/error"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputTextUsernameLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter password"
+            android:imeOptions="actionDone"
+            android:maxLines="1"
+            android:inputType="text"
+            android:textColor="@color/woodsmoke"
+            android:textSize="@dimen/app_text_size_three" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/buttonSubmitLogin"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/two_unit"
+        android:backgroundTint="@color/green_variant"
+        android:textSize="@dimen/app_text_size_three"
+        android:text="Login"
+        android:textColor="@color/yellow_secondary"
+        app:layout_constraintEnd_toEndOf="@+id/inputTextPasswordLayout"
+        app:layout_constraintStart_toStartOf="@+id/inputTextPasswordLayout"
+        app:layout_constraintTop_toBottomOf="@+id/inputTextPasswordLayout"
+        app:strokeWidth="@dimen/input_fields_stroke_width" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/five_unit"
+        android:padding="@dimen/two_unit"
+        android:text="Don't have an account?"
+        android:textColor="@color/yellow_secondary"
+        android:textSize="@dimen/app_text_size_two"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="OnBoarding Flow initiated..." />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSubmitLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

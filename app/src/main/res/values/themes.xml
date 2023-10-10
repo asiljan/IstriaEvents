@@ -2,26 +2,26 @@
     <!-- Base application theme. -->
     <style name="Theme.IstriaEvents" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/yellow</item>
-        <item name="colorPrimaryVariant">@color/yellow_70</item>
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryVariant">@color/green_variant</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorSecondary">@color/yellow_secondary</item>
+        <item name="colorSecondaryVariant">@color/yellow_secondary_variant</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/yellow_70</item>
+        <item name="android:statusBarColor" >@color/green_variant</item>
         <!-- Customize your theme here. -->
     </style>
 
     <style name="Theme.IstriaEvents.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/yellow</item>
-        <item name="android:windowBackground">@color/yellow_70</item>
-        <item name="colorPrimaryVariant">@color/yellow_70</item>
+        <item name="colorPrimary">@color/green</item>
+        <item name="android:windowBackground">@color/green_variant</item>
+        <item name="colorPrimaryVariant">@color/green</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="android:statusBarColor">@color/yellow_70</item>
+        <item name="android:statusBarColor">@color/green_variant</item>
     </style>
 
     <style name="Theme.IstriaEvents.Splash" parent="Theme.IstriaEvents">

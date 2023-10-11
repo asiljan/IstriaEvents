@@ -18,7 +18,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/green</item>
-        <item name="android:windowBackground">@color/green_variant</item>
+        <item name="android:windowBackground">@color/dirt_white</item>
         <item name="colorPrimaryVariant">@color/green</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="android:statusBarColor">@color/green_variant</item>
@@ -33,4 +33,9 @@
     <style name="Theme.IstriaEvents.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.IstriaEvents.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Rounded" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/three_unit</item>
+    </style>
 </resources>

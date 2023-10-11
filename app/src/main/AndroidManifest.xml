@@ -13,6 +13,7 @@
         android:theme="@style/Theme.IstriaEvents.NoActionBar">
         <activity
             android:name="com.siljan.istriaevents.ui.onboarding.OnboardingActivity"
+            android:theme="@style/Theme.IstriaEvents.NoActionBar"
             android:exported="false" />
         <activity
             android:name="com.siljan.istriaevents.ui.splash.SplashScreenActivity"

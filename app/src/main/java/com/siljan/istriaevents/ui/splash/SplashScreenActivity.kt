@@ -34,6 +34,7 @@ class SplashScreenActivity : AppCompatActivity(), BaseView<SplashIntent, SplashU
 
     private fun launchLoginRegisterFlow() {
         startActivity(OnboardingActivity.getIntent(this))
+        finish()
     }
 
     override fun render(state: SplashUIState) {

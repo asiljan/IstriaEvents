@@ -13,6 +13,7 @@
 
     <string name="splash_main_text">Istra Experience</string>
 
+    <string name="onboarding_label_error_fields_empty">Username and/or password cannot be empty</string>
     <string name="onboarding_gender_list_title">Choose</string>
     <array name="gender_option_list">
         <item>Male</item>

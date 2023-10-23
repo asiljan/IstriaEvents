@@ -47,7 +47,7 @@ class LoginFragment : Fragment(), BaseView<LoginIntent, LoginUIState> {
                     username = binding.inputTextUsername.text?.toString()?.trim() ?: "",
                     password = binding.inputTextPassword.text?.toString()?.trim() ?: ""
                 )
-            )
+            ).also { binding.loginIndeterminateBar.visibility = View.VISIBLE }
         }
     }
 
@@ -58,8 +58,12 @@ class LoginFragment : Fragment(), BaseView<LoginIntent, LoginUIState> {
 
     override fun render(state: LoginUIState) {
         when(state) {
-            LoginUIState.UserLoggedIn -> launchHome()
+            LoginUIState.UserLoggedIn -> {
+                binding.loginIndeterminateBar.visibility = View.GONE
+                launchHome()
+            }
             is LoginUIState.UserLogInError -> {
+                binding.loginIndeterminateBar.visibility = View.GONE
                 binding.inputTextUsernameLayout.isErrorEnabled = true
                 binding.inputTextUsernameLayout.error = requireActivity().getString(state.reasonId)
             }

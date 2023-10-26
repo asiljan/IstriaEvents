@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.onboarding.LoginFragment">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -25,9 +25,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/five_unit"
         android:layout_marginEnd="@dimen/five_unit"
+        android:textColorHint="@color/woodsmoke"
+        app:boxStrokeColor="@color/woodsmoke"
         app:boxStrokeErrorColor="@color/error"
-        app:errorTextColor="@color/error"
+        app:boxStrokeWidth="2dp"
         app:endIconMode="clear_text"
+        app:errorTextColor="@color/error"
+        app:hintTextColor="@color/green"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,9 +42,9 @@
             android:id="@+id/inputTextUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Enter username"
             android:inputType="text"
             android:maxLines="1"
-            android:hint="Enter username"
             android:textColor="@color/woodsmoke"
             android:textSize="@dimen/app_text_size_three" />
 
@@ -54,7 +58,12 @@
         android:layout_marginStart="@dimen/five_unit"
         android:layout_marginTop="@dimen/two_unit"
         android:layout_marginEnd="@dimen/five_unit"
+        android:textColorHint="@color/woodsmoke"
+        app:boxStrokeColor="@color/woodsmoke"
+        app:boxStrokeWidth="2dp"
         app:endIconMode="password_toggle"
+        app:endIconTint="@color/green"
+        app:hintTextColor="@color/green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputTextUsernameLayout"
@@ -81,7 +90,9 @@
         android:layout_marginTop="@dimen/two_unit"
         android:backgroundTint="@color/green_variant"
         android:text="Login"
-        android:textColor="@color/yellow_secondary"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:textColor="@color/woodsmoke"
         android:textSize="@dimen/app_text_size_three"
         app:layout_constraintEnd_toEndOf="@+id/inputTextPasswordLayout"
         app:layout_constraintStart_toStartOf="@+id/inputTextPasswordLayout"
@@ -97,6 +108,7 @@
         android:text="Don't have an account?"
         android:textColor="@color/yellow_secondary"
         android:textSize="@dimen/app_text_size_two"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonSubmitLogin" />
@@ -105,19 +117,19 @@
         android:id="@+id/loginIndeterminateBar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:background="@color/woodsmoke_40"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ProgressBar
+            style="@android:style/Widget.Material.Light.ProgressBar.Large.Inverse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@android:style/Widget.Material.Light.ProgressBar.Large.Inverse"
-            android:indeterminate="true"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:indeterminate="true" />
 
     </FrameLayout>
 

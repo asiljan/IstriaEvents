@@ -7,16 +7,49 @@
     android:background="@color/dirt_white"
     tools:context=".ui.home.HomeFragment">
 
+    <TextView
+        android:id="@+id/homePopularEventsLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/three_unit"
+        android:text="Trending now"
+        android:textColor="@color/woodsmoke"
+        android:textSize="@dimen/app_text_size_three"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/homePopularEventsList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homePopularEventsLabel" />
+
+    <View
+        android:id="@+id/homeHorizontalSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/four_unit"
+        android:layout_marginStart="@dimen/four_unit"
+        android:layout_marginEnd="@dimen/four_unit"
+        android:background="@drawable/selector_gray_bg"
+        app:layout_constraintTop_toBottomOf="@+id/homePopularEventsList" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventsList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:paddingTop="@dimen/four_unit"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/homeHorizontalSeparator" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

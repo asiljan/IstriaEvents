@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="204dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/three_unit"
+    android:layout_marginEnd="@dimen/three_unit"
+    app:cardBackgroundColor="@color/green_secondary"
+    app:cardElevation="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/itemPopularEventImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxHeight="86dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/img_events_placeholder" />
+
+        <TextView
+            android:id="@+id/itemEventTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Some Great popular concert"
+            android:padding="@dimen/two_unit"
+            android:textColor="@color/woodsmoke"
+            android:ellipsize="marquee"
+            android:textSize="@dimen/app_text_size_three"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/itemPopularEventImage"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

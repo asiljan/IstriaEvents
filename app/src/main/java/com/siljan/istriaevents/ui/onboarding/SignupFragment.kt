@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import com.siljan.istriaevents.R
 import com.siljan.istriaevents.databinding.FragmentSignupBinding
 
@@ -25,10 +26,13 @@ class SignupFragment : Fragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this)[SignupViewModel::class.java]
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.gender_option_list, R.layout.spinner_item)
+
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        binding.signupGenderSpinner.adapter = adapter
     }
 
     override fun onDestroyView() {

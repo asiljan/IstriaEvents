@@ -127,11 +127,12 @@
         app:layout_constraintTop_toBottomOf="@+id/inputTextLastNameLayout" />
 
     <Spinner
+        android:id="@+id/signupGenderSpinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:entries="@array/gender_option_list"
         android:prompt="@string/onboarding_gender_list_title"
-        style="@style/Widget.AppCompat.Spinner.Underlined"
+        android:backgroundTint="@color/woodsmoke"
+        android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/inputTextEmailLayout"
         app:layout_constraintEnd_toEndOf="@+id/inputTextLastNameLayout"
         app:layout_constraintTop_toBottomOf="@+id/inputTextLastNameLayout" />

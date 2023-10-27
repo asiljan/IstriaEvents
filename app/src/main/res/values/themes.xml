@@ -61,9 +61,11 @@
         <item name="colorOnSurface">@color/green_secondary</item>
     </style>
 
-    <style name="Widget.AppCompat.Spinner" parent="">
-        <item name="android:textColor">@color/dirt_white</item>
-        <item name="android:typeface">monospace</item>
-        <item name="android:background">@color/woodsmoke_20</item>
+    <style name="SpinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="backgroundTint">@color/woodsmoke</item>
+    </style>
+
+    <style name="SpinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+
     </style>
 </resources>

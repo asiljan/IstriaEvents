@@ -13,6 +13,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.siljan.istriaevents.databinding.ActivityMainBinding
+import com.siljan.istriaevents.ui.onboarding.OnboardingActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +40,14 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home, R.id.nav_favorites, R.id.nav_explore,  R.id.nav_notifications
             ), drawerLayout
         )
+
+        binding.navDrawerLabelLogout.setOnClickListener {
+            //Implement this within ViewModel, logout from the Firebase and then redirect to the OnboardingActivity
+            drawerLayout.close()
+            val intent = OnboardingActivity.getIntent(this)
+            startActivity(intent)
+            this.finish()
+        }
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         bottomNavView.setupWithNavController(navController)

@@ -42,7 +42,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:itemBackground="@color/green"
+        app:itemBackground="@color/blue"
         app:itemIconTint="@drawable/bottom_bar_selector"
         app:labelVisibilityMode="unlabeled"
         app:menu="@menu/bottom_navigation_view" />

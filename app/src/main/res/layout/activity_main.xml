@@ -15,23 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-<!--    <androidx.coordinatorlayout.widget.CoordinatorLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-
-<!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--            android:id="@+id/main_bottom_nav_view"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="bottom"-->
-<!--            app:itemBackground="@color/woodsmoke"-->
-<!--            app:itemIconTint="@color/green"-->
-<!--            app:itemTextAppearanceActive="@color/green"-->
-<!--            app:itemTextAppearanceInactive="@color/dirt_white"-->
-<!--            app:menu="@menu/bottom_navigation_view" />-->
-
-<!--    </androidx.coordinatorlayout.widget.CoordinatorLayout>-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/drawer"
         android:layout_width="292dp"

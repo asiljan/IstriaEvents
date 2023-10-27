@@ -22,7 +22,7 @@
         android:maxWidth="92dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/two_unit"
-        app:srcCompat="@drawable/img_logo" />
+        app:srcCompat="@drawable/img_profile_placeholder" />
 
     <TextView
         android:layout_width="wrap_content"

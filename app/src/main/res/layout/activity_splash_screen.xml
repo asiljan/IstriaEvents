@@ -11,7 +11,7 @@
         android:id="@+id/imageLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/img_logo"
+        android:src="@drawable/img_logo_placeholder"
         android:adjustViewBounds="true"
         android:layout_centerInParent="true"
         android:maxWidth="@dimen/app_logo_large_size"
@@ -24,6 +24,7 @@
         android:text="@string/splash_main_text"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/app_text_size_four"
+        android:textStyle="bold"
         android:textColor="@color/black"
         android:fontFamily="sans-serif-light"
         android:layout_below="@+id/imageLogo"/>

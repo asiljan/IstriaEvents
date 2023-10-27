@@ -2,20 +2,20 @@
     <!-- Base application theme. -->
     <style name="Theme.IstriaEvents" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorPrimaryVariant">@color/green_variant</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorPrimaryVariant">@color/blue_variant</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/yellow_secondary</item>
-        <item name="colorSecondaryVariant">@color/yellow_secondary_variant</item>
+        <item name="colorSecondary">@color/green_secondary</item>
+        <item name="colorSecondaryVariant">@color/green_secondary_variant</item>
         <item name="colorOnSecondary">@color/black</item>
 
-        <item name="colorContainer">@color/green</item>
-        <item name="colorOnContainer">@color/green</item>
-        <item name="colorPrimaryContainer">@color/green</item>
-        <item name="colorSurfaceContainer">@color/green</item>
+        <item name="colorContainer">@color/blue</item>
+        <item name="colorOnContainer">@color/blue</item>
+        <item name="colorPrimaryContainer">@color/blue</item>
+        <item name="colorSurfaceContainer">@color/blue</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >@color/green_variant</item>
+        <item name="android:statusBarColor" >@color/blue_variant</item>
         <item name="materialCardViewStyle">@style/Widget.App.CardView</item>
         <!-- Customize your theme here. -->
     </style>
@@ -23,16 +23,16 @@
     <style name="Theme.IstriaEvents.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimary">@color/blue</item>
         <item name="android:windowBackground">@color/dirt_white</item>
-        <item name="colorPrimaryVariant">@color/green</item>
+        <item name="colorPrimaryVariant">@color/blue</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="android:statusBarColor">@color/green_variant</item>
+        <item name="android:statusBarColor">@color/blue_variant</item>
 
-        <item name="colorContainer">@color/green</item>
-        <item name="colorOnContainer">@color/green</item>
-        <item name="colorPrimaryContainer">@color/green</item>
-        <item name="colorSurfaceContainer">@color/green</item>
+        <item name="colorContainer">@color/blue</item>
+        <item name="colorOnContainer">@color/blue</item>
+        <item name="colorPrimaryContainer">@color/blue</item>
+        <item name="colorSurfaceContainer">@color/blue</item>
     </style>
 
     <style name="Theme.IstriaEvents.Splash" parent="Theme.IstriaEvents">
@@ -56,8 +56,14 @@
     </style>
 
     <style name="ThemeOverlay.App.Card" parent="">
-        <item name="colorPrimary">@color/green</item>
-        <item name="colorSurface">@color/green</item>
-        <item name="colorOnSurface">@color/yellow_secondary</item>
+        <item name="colorPrimary">@color/blue</item>
+        <item name="colorSurface">@color/blue</item>
+        <item name="colorOnSurface">@color/green_secondary</item>
+    </style>
+
+    <style name="Widget.AppCompat.Spinner" parent="">
+        <item name="android:textColor">@color/dirt_white</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:background">@color/woodsmoke_20</item>
     </style>
 </resources>

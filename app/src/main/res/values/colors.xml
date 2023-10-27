@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="green">#259b24</color>
-    <color name="green_variant">#b30a7e07</color>
-    <color name="yellow_secondary">#ffab40</color>
-    <color name="yellow_secondary_variant">#b3ffab40</color>
-    <color name="yellow_secondary_50">#80ffab40</color>
+    <color name="blue">#45A8EE</color>
+    <color name="blue_variant">#1489db</color>
+
+    <color name="green_secondary">#59DD71</color>
+    <color name="green_secondary_variant">#1cd93e</color>
+    <color name="green_secondary_50">#801cd93e</color>
+
     <color name="black">#FF000000</color>
     <color name="woodsmoke">#202022</color>
     <color name="woodsmoke_20">#33202022</color>
-    <color name="woodsmoke_40">#66202022</color>
+    <color name="woodsmoke_70">#b3202022</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dirt_white">#EDE9E8</color>
+
     <color name="error">#B00020</color>
 </resources>

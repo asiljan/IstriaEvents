@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/notificationTextWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/itemNotificationTime">
+
+        <TextView
+            android:id="@+id/itemNotificationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/four_unit"
+            android:paddingTop="@dimen/four_unit"
+            android:paddingEnd="@dimen/two_unit"
+            android:textStyle="bold"
+            android:paddingBottom="@dimen/two_unit"
+            android:text="Some concert info blabla"
+            android:textColor="@color/woodsmoke"
+            android:textSize="@dimen/app_text_size_four" />
+
+        <TextView
+            android:id="@+id/itemNotificationAdditionalInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/three_unit"
+            android:paddingStart="@dimen/four_unit"
+            android:paddingBottom="@dimen/three_unit"
+            android:text="Your event is about to start in 2 hours"
+            android:textColor="@color/woodsmoke_70" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/itemNotificationTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/three_unit"
+        android:text="19:36"
+        android:textColor="@color/woodsmoke"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationTextWrapper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/notificationTextWrapper" />
+
+    <View
+        android:id="@+id/itemNotificationHorizontalSeparatorView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/four_unit"
+        android:layout_marginEnd="@dimen/four_unit"
+        android:backgroundTint="@color/green_secondary"
+        android:background="@drawable/selector_gray_bg"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

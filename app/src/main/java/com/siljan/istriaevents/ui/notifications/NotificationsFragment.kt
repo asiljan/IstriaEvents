@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.siljan.domain.models.Notification
 import com.siljan.istriaevents.R
+import com.siljan.istriaevents.databinding.FragmentNotificationsBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +24,9 @@ class NotificationsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private var _binding: FragmentNotificationsBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,8 +39,51 @@ class NotificationsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notifications, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val adapter = NotificationsAdapter(
+            arrayOf(
+                Notification(
+                    name = "Some happening notification info 1",
+                    date = 112243254252
+                ),
+                Notification(
+                    name = "Some happening notification info 2",
+                    date = 112243254252
+                ),
+                Notification(
+                    name = "Some happening notification info 3",
+                    date = 112243254252
+                ),
+                Notification(
+                    name = "Some happening notification info 4",
+                    date = 112243254252
+                ),
+                Notification(
+                    name = "Some happening notification info 5",
+                    date = 112243254252
+                ),
+                Notification(
+                    name = "Some happening notification info 6",
+                    date = 112243254252
+                )
+            ),
+            object : NotificationsAdapter.NotificationClickListener {
+                override fun onNotificationItemClicked(notification: Notification) {
+                    //TODO
+                }
+            }
+        )
+
+        binding.notificationsList.adapter = adapter
     }
 
     companion object {

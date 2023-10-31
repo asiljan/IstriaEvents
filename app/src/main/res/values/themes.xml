@@ -68,4 +68,11 @@
     <style name="SpinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
 
     </style>
+
+    <style name="Widget.MyApp.Chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@drawable/selector_chip_bg</item>
+        <item name="backgroundColor">@drawable/selector_chip_bg</item>
+        <item name="android:textColor">@color/dirt_white</item>
+        <item name="android:checkable">true</item>
+    </style>
 </resources>

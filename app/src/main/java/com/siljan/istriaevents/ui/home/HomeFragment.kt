@@ -10,13 +10,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.siljan.domain.models.Event
 import com.siljan.istriaevents.databinding.FragmentHomeBinding
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), EventsAdapter.EventItemClick {
 
     private var _binding: FragmentHomeBinding? = null
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     private lateinit var horizontalLayoutManager: LinearLayoutManager
+    private val eventsAdapter: EventsAdapter by lazy {
+        EventsAdapter(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,7 +66,7 @@ class HomeFragment : Fragment() {
         binding.homePopularEventsList.layoutManager = horizontalLayoutManager
         binding.homePopularEventsList.adapter = popularEventsAdapter
 
-        val adapter = EventsAdapter(arrayOf(
+        val eventsList = arrayOf(
             Event(
                 eventName = "Some Crazy Event 1",
                 isFavorite = false,
@@ -84,18 +87,19 @@ class HomeFragment : Fragment() {
                 isFavorite = true,
                 eventDescription = "Some text description should be here with most important informations about event"
             ),
-        ), object : EventsAdapter.EventItemClick {
-            override fun onItemClicked(event: Event) {
-                Toast.makeText(requireContext(), "${event.eventName} - favorite?: ${event.isFavorite}", Toast.LENGTH_SHORT).show()
-            }
-        })
+        )
 
-        binding.eventsList.adapter = adapter
+        eventsAdapter.updateDataSet(eventsList)
+        binding.eventsList.adapter = eventsAdapter
 
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onItemClicked(event: Event) {
+        Toast.makeText(requireContext(), "${event.eventName} - favorite?: ${event.isFavorite}", Toast.LENGTH_SHORT).show()
     }
 }

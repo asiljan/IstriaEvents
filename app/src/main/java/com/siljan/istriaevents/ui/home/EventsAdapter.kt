@@ -7,9 +7,10 @@ import com.siljan.domain.models.Event
 import com.siljan.istriaevents.R
 import com.siljan.istriaevents.databinding.ItemEventCardBinding
 
-class EventsAdapter(private val dataSet: Array<Event>, private val clickListener: EventItemClick) :
+class EventsAdapter(private val clickListener: EventItemClick) :
     RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
 
+    private var dataSet: Array<Event> = emptyArray()
     interface EventItemClick {
         fun onItemClicked(event: Event)
     }
@@ -32,6 +33,11 @@ class EventsAdapter(private val dataSet: Array<Event>, private val clickListener
 
                 binding.itemEventBtnFavorite.setOnClickListener { clickListener.onItemClicked(event) }
             }
+    }
+
+    fun updateDataSet(data: Array<Event>) {
+        dataSet = data
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

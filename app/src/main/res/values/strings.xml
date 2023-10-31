@@ -22,6 +22,19 @@
         <item>Female</item>
         <item>Other</item>
     </array>
+
+    <array name="explore_cities_input">
+        <item>--</item>
+        <item>Pula</item>
+        <item>Rovinj</item>
+        <item>Porec</item>
+        <item>Pazin</item>
+        <item>Umag</item>
+        <item>Medulin</item>
+        <item>Motovun</item>
+        <item>Novigrad</item>
+    </array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

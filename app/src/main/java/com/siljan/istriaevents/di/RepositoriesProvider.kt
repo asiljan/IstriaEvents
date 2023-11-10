@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 @InstallIn(SingletonComponent::class)
 class RepositoriesProvider {
     @Provides
-    fun provideUserRepository(userModelMapper: UserModelMapper): UserRepository {
-        return FirebaseUserRepository(userModelMapper, Dispatchers.IO)
+    fun provideUserRepository(userModelMapper: UserModelMapper, @IoDispatcher ioDispatcher: CoroutineDispatcher): UserRepository {
+        return FirebaseUserRepository(userModelMapper, ioDispatcher)
     }
 }

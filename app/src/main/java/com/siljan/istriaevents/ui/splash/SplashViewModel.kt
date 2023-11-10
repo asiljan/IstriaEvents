@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.siljan.domain.models.Result
 import com.siljan.domain.usecases.CheckUserUseCase
 import com.siljan.istriaevents.common.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,7 +25,10 @@ class SplashViewModel @Inject constructor(
             when (intent) {
                 SplashIntent.UserAuthenticationCheck -> checkUserUseCase.execute()
                     .collect {
-                        _uiState.postValue(SplashUIState.GuestUser)
+                        if (it is Result.Success)
+                            _uiState.postValue(SplashUIState.UserExists(it.data.displayName))
+                        else
+                            _uiState.postValue(SplashUIState.GuestUser)
                     }
             }
         }

@@ -1,6 +1,7 @@
 package com.siljan.istriaevents.di
 
 import com.siljan.domain.repositories.UserRepository
+import com.siljan.domain.usecases.AuthenticateUserUseCase
 import com.siljan.domain.usecases.CheckUserUseCase
 import dagger.Module
 import dagger.Provides
@@ -15,5 +16,11 @@ class UseCasesProvider {
     @ViewModelScoped
     fun provideCheckUserUseCase(userRepository: UserRepository): CheckUserUseCase {
         return CheckUserUseCase(userRepository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideAuthenticateUserUseCase(userRepository: UserRepository): AuthenticateUserUseCase {
+        return AuthenticateUserUseCase(userRepository)
     }
 }

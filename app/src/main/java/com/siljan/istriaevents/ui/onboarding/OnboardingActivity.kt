@@ -7,7 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.siljan.istriaevents.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OnboardingActivity : AppCompatActivity(R.layout.activity_onboarding) {
 
     private lateinit var navController: NavController

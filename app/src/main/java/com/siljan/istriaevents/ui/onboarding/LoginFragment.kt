@@ -1,6 +1,5 @@
 package com.siljan.istriaevents.ui.onboarding
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,9 @@ import androidx.navigation.findNavController
 import com.siljan.istriaevents.MainActivity
 import com.siljan.istriaevents.common.BaseView
 import com.siljan.istriaevents.databinding.FragmentLoginBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : Fragment(), BaseView<LoginIntent, LoginUIState> {
 
     private var _binding: FragmentLoginBinding? = null

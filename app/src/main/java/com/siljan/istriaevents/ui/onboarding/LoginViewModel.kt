@@ -1,5 +1,6 @@
 package com.siljan.istriaevents.ui.onboarding
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.siljan.domain.models.LoginRequest
 import com.siljan.domain.models.Result
 import com.siljan.domain.usecases.AuthenticateUserUseCase
-import com.siljan.istriaevents.R
 import com.siljan.istriaevents.common.BaseViewModel
+import com.siljan.istriaevents.common.validateEmailInput
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -24,26 +25,27 @@ class LoginViewModel @Inject constructor(private val authenticateUserUseCase: Au
         viewModelScope.launch {
             when (intent) {
                 is LoginIntent.UserLogIn -> {
-                    if (!validateEmailInput(intent.username) or intent.password.isEmpty()) {
-                        _uiState.postValue(LoginUIState.UserLogInError(R.string.onboarding_label_error_fields_empty))
-                    } else {
-                        authenticateUserUseCase.execute(
-                            LoginRequest(
-                                intent.username,
-                                intent.password
-                            )
-                        )
-                            .collect {
-                                when (it) {
-                                    is Result.Success -> _uiState.postValue(LoginUIState.UserLoggedIn)
-                                    is Result.Error -> _uiState.postValue(
-                                        LoginUIState.UserLogInError(
-                                            R.string.api_remote_calls_unknown_error
-                                        )
-                                    )
-                                }
-                            }
+                    val validationError = validateUserInput(intent.email, intent.password)
+
+                    validationError?.let {
+                        _uiState.postValue(it)
+                        return@launch
                     }
+
+                    authenticateUserUseCase.execute(
+                        LoginRequest(
+                            intent.email,
+                            intent.password
+                        )
+                    )
+                        .collect {
+                            when (it) {
+                                is Result.Success -> _uiState.postValue(LoginUIState.UserLoggedIn)
+                                is Result.Error -> _uiState.postValue(
+                                    LoginUIState.UserLogInError(LoginError.ErrorApi(null)) //TODO implement better error handling on a data layer
+                                )
+                            }
+                        }
                 }
             }
         }
@@ -53,5 +55,19 @@ class LoginViewModel @Inject constructor(private val authenticateUserUseCase: Au
         return uiState
     }
 
-    private fun validateEmailInput(input: String): Boolean = input.isNotEmpty()
+    private fun validateUserInput(email: String, password: String): LoginUIState.UserLogInError? {
+        if (email.isEmpty())
+            return LoginUIState.UserLogInError(LoginError.ErrorEmailEmpty)
+
+        if (password.isEmpty())
+            return LoginUIState.UserLogInError(LoginError.ErrorPasswordEmpty)
+
+        if (!validateEmailInput(email))
+            return LoginUIState.UserLogInError(LoginError.ErrorEmailInvalid)
+
+        if (password.length < 6)
+            return LoginUIState.UserLogInError(LoginError.ErrorPasswordInvalid)
+
+        return null
+    }
 }

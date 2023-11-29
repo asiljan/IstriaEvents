@@ -15,7 +15,11 @@
 
     <string name="splash_main_text">Istra Experience</string>
 
-    <string name="onboarding_label_error_fields_empty">Username and/or password cannot be empty</string>
+    <string name="onboarding_label_error_email_empty">Email cannot be empty</string>
+    <string name="onboarding_label_error_password_empty">Password cannot be empty</string>
+    <string name="onboarding_label_error_email_not_match">Please enter an valid email</string>
+    <string name="onboarding_label_error_password_too_short">Password must contain at least 6 characters</string>
+
     <string name="onboarding_gender_list_title">Choose</string>
     <array name="gender_option_list">
         <item>Male</item>

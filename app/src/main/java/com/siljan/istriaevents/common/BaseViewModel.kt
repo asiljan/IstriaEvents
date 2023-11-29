@@ -1,7 +1,6 @@
 package com.siljan.istriaevents.common
 
 import androidx.lifecycle.LiveData
-import com.siljan.istriaevents.mvibase.MviEvent
 
 /**
  * Object that will subscribes to a [BaseView]'s [BaseIntent]s,
@@ -15,13 +14,4 @@ interface BaseViewModel<I: BaseIntent, S: BaseViewState> {
     fun processIntent(intent: I)
 
     fun states(): LiveData<S>
-}
-
-/**
- * In addition to [BaseViewModel] this class uses [MviEvent] as a third param
- *
- * @param E Top class of the [MviEvent] the [BaseViewModel] will be emitting
- */
-interface BaseEventViewModel<I: BaseIntent, S: BaseViewState, E: MviEvent>: BaseViewModel<I, S> {
-    fun events(): SingleLiveEvent<E>
 }

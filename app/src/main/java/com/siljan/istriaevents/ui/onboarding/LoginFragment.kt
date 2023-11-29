@@ -43,9 +43,11 @@ class LoginFragment : Fragment(), BaseView<LoginIntent, LoginUIState> {
         }
 
         binding.buttonSubmitLogin.setOnClickListener {
+            binding.inputTextUsernameLayout.isErrorEnabled = false
+            binding.inputTextPasswordLayout.isErrorEnabled = false
             viewModel.processIntent(
                 LoginIntent.UserLogIn(
-                    username = binding.inputTextUsername.text?.toString()?.trim() ?: "",
+                    email = binding.inputTextUsername.text?.toString()?.trim() ?: "",
                     password = binding.inputTextPassword.text?.toString()?.trim() ?: ""
                 )
             ).also { binding.loginIndeterminateBar.visibility = View.VISIBLE }
@@ -66,7 +68,16 @@ class LoginFragment : Fragment(), BaseView<LoginIntent, LoginUIState> {
             is LoginUIState.UserLogInError -> {
                 binding.loginIndeterminateBar.visibility = View.GONE
                 binding.inputTextUsernameLayout.isErrorEnabled = true
-                binding.inputTextUsernameLayout.error = requireActivity().getString(state.reasonId)
+                when(state.error) {
+                    LoginError.ErrorEmailEmpty, LoginError.ErrorEmailInvalid ->
+                        binding.inputTextUsernameLayout.error = requireActivity().getString(state.error.reasonId)
+                    LoginError.ErrorPasswordInvalid, LoginError.ErrorPasswordEmpty ->
+                        binding.inputTextPasswordLayout.error = requireActivity().getString(state.error.reasonId)
+                    else -> {
+                        //TODO handle API errors with some generic text layout??
+                    }
+                }
+//                binding.inputTextUsernameLayout.error = requireActivity().getString(state.reasonId)
             }
         }
     }

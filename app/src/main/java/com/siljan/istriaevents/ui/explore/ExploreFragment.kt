@@ -48,7 +48,7 @@ class ExploreFragment : Fragment(), ChipGroup.OnCheckedStateChangeListener, OnIt
         EventsAdapter(this)
     }
 
-    private var allEventsList: Array<Event> = emptyArray()
+    private var allEventsList: List<Event> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,7 +100,7 @@ class ExploreFragment : Fragment(), ChipGroup.OnCheckedStateChangeListener, OnIt
         }
 
         //TODO update this - use data layer and repository to fetch real data
-        allEventsList = arrayOf(
+        allEventsList = listOf(
             Event(
                 eventName = "Event name 1",
                 isFavorite = false,
@@ -184,7 +184,7 @@ class ExploreFragment : Fragment(), ChipGroup.OnCheckedStateChangeListener, OnIt
         val dateFilter = if (checkedIds.isNotEmpty()) getDateFilter(checkedIds[0]) else null
 
         if (dateFilter != null && !binding.exploreCityFilterSpinner.selectedItem.equals("--")) {
-            val filteredEventsList = arrayOf(
+            val filteredEventsList = listOf(
                 Event(
                     eventName = "Filtered event",
                     isFavorite = false,

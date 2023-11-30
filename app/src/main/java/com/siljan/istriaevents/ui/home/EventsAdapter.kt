@@ -10,7 +10,7 @@ import com.siljan.istriaevents.databinding.ItemEventCardBinding
 class EventsAdapter(private val clickListener: EventItemClick) :
     RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
 
-    private var dataSet: Array<Event> = emptyArray()
+    private var dataSet: List<Event> = emptyList()
     interface EventItemClick {
         fun onItemClicked(event: Event)
     }
@@ -35,7 +35,7 @@ class EventsAdapter(private val clickListener: EventItemClick) :
             }
     }
 
-    fun updateDataSet(data: Array<Event>) {
+    fun updateDataSet(data: List<Event>) {
         dataSet = data
         notifyDataSetChanged()
     }

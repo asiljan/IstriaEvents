@@ -1,7 +1,9 @@
 package com.siljan.istriaevents.di
 
 import com.siljan.data.dto.UserModelMapper
+import com.siljan.data.repository.FirebaseEventsRepository
 import com.siljan.data.repository.FirebaseUserRepository
+import com.siljan.domain.repositories.EventsRepository
 import com.siljan.domain.repositories.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -16,5 +18,10 @@ class RepositoriesProvider {
     @Provides
     fun provideUserRepository(userModelMapper: UserModelMapper, @IoDispatcher ioDispatcher: CoroutineDispatcher): UserRepository {
         return FirebaseUserRepository(userModelMapper, ioDispatcher)
+    }
+
+    @Provides
+    fun provideEventsRepository(@IoDispatcher ioDispatcher: CoroutineDispatcher): EventsRepository {
+        return FirebaseEventsRepository(ioDispatcher)
     }
 }

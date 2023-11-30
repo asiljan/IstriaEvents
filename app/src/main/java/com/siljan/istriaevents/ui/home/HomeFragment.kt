@@ -6,20 +6,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.siljan.domain.models.Event
+import com.siljan.istriaevents.common.BaseView
 import com.siljan.istriaevents.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class HomeFragment : Fragment(), EventsAdapter.EventItemClick {
+@AndroidEntryPoint
+class HomeFragment : Fragment(), EventsAdapter.EventItemClick, BaseView<EventsIntent, EventsUIState> {
 
     private var _binding: FragmentHomeBinding? = null
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
     private lateinit var horizontalLayoutManager: LinearLayoutManager
+
     private val eventsAdapter: EventsAdapter by lazy {
         EventsAdapter(this)
     }
+
+    private lateinit var viewModel: EventsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +35,8 @@ class HomeFragment : Fragment(), EventsAdapter.EventItemClick {
     ): View? {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        viewModel = ViewModelProvider(this)[EventsViewModel::class.java]
 
         horizontalLayoutManager = LinearLayoutManager(
             requireContext(),
@@ -66,32 +75,11 @@ class HomeFragment : Fragment(), EventsAdapter.EventItemClick {
         binding.homePopularEventsList.layoutManager = horizontalLayoutManager
         binding.homePopularEventsList.adapter = popularEventsAdapter
 
-        val eventsList = arrayOf(
-            Event(
-                eventName = "Some Crazy Event 1",
-                isFavorite = false,
-                eventDescription = "Some text description should be here with most important informations about event"
-            ),
-            Event(
-                eventName = "Some Crazy Event 2",
-                isFavorite = true,
-                eventDescription = "Some text description should be here with most important informations about event"
-            ),
-            Event(
-                eventName = "Some Crazy Event 3",
-                isFavorite = false,
-                eventDescription = "Some text description should be here with most important informations about event"
-            ),
-            Event(
-                eventName = "Some Crazy Event 4",
-                isFavorite = true,
-                eventDescription = "Some text description should be here with most important informations about event"
-            ),
-        )
-
-        eventsAdapter.updateDataSet(eventsList)
         binding.eventsList.adapter = eventsAdapter
 
+        viewModel.states().observe(viewLifecycleOwner) {render(it)}
+
+        viewModel.processIntent(EventsIntent.FetchAllEvents)
     }
 
     override fun onDestroyView() {
@@ -101,5 +89,18 @@ class HomeFragment : Fragment(), EventsAdapter.EventItemClick {
 
     override fun onItemClicked(event: Event) {
         Toast.makeText(requireContext(), "${event.eventName} - favorite?: ${event.isFavorite}", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun render(state: EventsUIState) {
+        when(state) {
+            is EventsUIState.EventsFetched -> {
+                binding.eventsIndeterminateBar.visibility = View.GONE
+                eventsAdapter.updateDataSet(state.data)
+            }
+            EventsUIState.EventsFetching -> binding.eventsIndeterminateBar.visibility = View.VISIBLE
+            EventsUIState.EventsFetchingError -> {
+                binding.eventsIndeterminateBar.visibility = View.GONE
+            }
+        }
     }
 }

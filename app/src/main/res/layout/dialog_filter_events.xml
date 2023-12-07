@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dirt_white"
+    android:padding="@dimen/four_unit">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/filterEventsChipsFilterGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:singleLine="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFilterToday"
+            style="@style/Widget.MyApp.Chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Today" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFilterTmrw"
+            style="@style/Widget.MyApp.Chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tomorrow" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFilterWeekend"
+            style="@style/Widget.MyApp.Chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weekend" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/filterEventsPaidLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/three_unit"
+        android:textSize="@dimen/app_text_size_three"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/woodsmoke"
+        app:layout_constraintTop_toBottomOf="@+id/filterEventsChipsFilterGroup"
+        android:text="Include paid events" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/filterEventsPaidLabel"
+        app:layout_constraintBottom_toBottomOf="@+id/filterEventsPaidLabel"/>
+
+    <View
+        android:id="@+id/filterEventsHorizontalDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/three_unit"
+        android:background="@drawable/selector_gray_bg"
+        android:backgroundTint="@color/green_secondary_variant"
+        app:layout_constraintTop_toBottomOf="@+id/filterEventsPaidLabel" />
+
+    <DatePicker
+        android:id="@+id/filterEventsDateRangePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/three_unit"
+        android:layout_marginBottom="@dimen/three_unit"
+        android:theme="@style/Theme.App.DatePicker"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:datePickerMode="calendar"
+        app:layout_constraintTop_toBottomOf="@+id/filterEventsHorizontalDivider"
+        app:layout_constraintBottom_toTopOf="@+id/filterEventsApplyButton" />
+
+    <Button
+        android:id="@+id/filterEventsApplyButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="apply"
+        android:textAllCaps="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

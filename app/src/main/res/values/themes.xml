@@ -15,9 +15,10 @@
         <item name="colorPrimaryContainer">@color/blue</item>
         <item name="colorSurfaceContainer">@color/blue</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" >@color/blue_variant</item>
+        <item name="android:statusBarColor">@color/blue_variant</item>
         <item name="materialCardViewStyle">@style/Widget.App.CardView</item>
-        <!-- Customize your theme here. -->
+
+        <item name="materialCalendarTheme">@style/Theme.App.DatePicker</item>
     </style>
 
     <style name="Theme.IstriaEvents.NoActionBar">
@@ -33,6 +34,8 @@
         <item name="colorOnContainer">@color/blue</item>
         <item name="colorPrimaryContainer">@color/blue</item>
         <item name="colorSurfaceContainer">@color/blue</item>
+
+        <item name="materialCalendarTheme">@style/Theme.App.DatePicker</item>
     </style>
 
     <style name="Theme.IstriaEvents.Splash" parent="Theme.IstriaEvents">
@@ -74,5 +77,10 @@
         <item name="backgroundColor">@drawable/selector_chip_bg</item>
         <item name="android:textColor">@color/dirt_white</item>
         <item name="android:checkable">true</item>
+    </style>
+
+    <style name="Theme.App.DatePicker" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/green_secondary</item>
+        <item name="colorOnPrimary">@color/green_secondary_variant</item>
     </style>
 </resources>

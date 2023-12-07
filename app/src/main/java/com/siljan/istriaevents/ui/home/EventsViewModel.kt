@@ -8,10 +8,10 @@ import com.siljan.domain.models.Result
 import com.siljan.domain.usecases.GetAllEventsUseCase
 import com.siljan.istriaevents.common.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @HiltViewModel
 class EventsViewModel @Inject constructor(private val getEventsUseCase: GetAllEventsUseCase) :
     ViewModel(), BaseViewModel<EventsIntent, EventsUIState> {

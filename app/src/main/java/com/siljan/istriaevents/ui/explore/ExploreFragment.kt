@@ -9,19 +9,21 @@ import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.siljan.domain.models.Event
 import com.siljan.istriaevents.R
+import com.siljan.istriaevents.common.BaseView
 import com.siljan.istriaevents.databinding.FragmentExploreBinding
 import com.siljan.istriaevents.ui.home.EventsAdapter
+import com.siljan.istriaevents.ui.home.EventsIntent
+import com.siljan.istriaevents.ui.home.EventsUIState
+import com.siljan.istriaevents.ui.home.EventsViewModel
 import com.siljan.istriaevents.ui.models.EventsFilter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import dagger.hilt.android.AndroidEntryPoint
 
-class ExploreFragment : Fragment(), /*ChipGroup.OnCheckedStateChangeListener*/
-    OnItemSelectedListener,
-    EventsAdapter.EventItemClick, FilterEventsDialogFragment.EventsDialogListener {
+@AndroidEntryPoint
+class ExploreFragment : Fragment(), OnItemSelectedListener, EventsAdapter.EventItemClick,
+    FilterEventsDialogFragment.EventsDialogListener, BaseView<EventsIntent, EventsUIState> {
 
     private var _binding: FragmentExploreBinding? = null
     private val binding: FragmentExploreBinding get() = _binding!!
@@ -30,13 +32,15 @@ class ExploreFragment : Fragment(), /*ChipGroup.OnCheckedStateChangeListener*/
         EventsAdapter(this)
     }
 
-    private var allEventsList: List<Event> = emptyList()
+    private lateinit var viewModel: EventsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
+
+        viewModel = ViewModelProvider(this)[EventsViewModel::class.java]
 
         binding.exploreCityFilterSpinner.onItemSelectedListener = this
 
@@ -50,105 +54,33 @@ class ExploreFragment : Fragment(), /*ChipGroup.OnCheckedStateChangeListener*/
             FilterEventsDialogFragment().show(childFragmentManager, "filter_dialog")
         }
 
-        val adapter = ArrayAdapter.createFromResource(
+        ArrayAdapter.createFromResource(
             requireContext(),
             R.array.explore_cities_input,
             R.layout.spinner_item
-        )
-
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
-
-        binding.exploreCityFilterSpinner.adapter = adapter
+        ).apply {
+            setDropDownViewResource(R.layout.spinner_dropdown_item)
+            binding.exploreCityFilterSpinner.adapter = this
+        }
 
 //            binding.exploreCityFilterSpinner.setSelection(0)
 //            binding.exploreCitiesChipsFilterGroup.clearCheck()
 
-        //TODO update this - use data layer and repository to fetch real data
-        allEventsList = listOf(
-            Event(
-                eventName = "Event name 1",
-                isFavorite = false,
-                eventDescription = "Some text description should be here with most important informations about event"
-            ),
-            Event(
-                eventName = "Event name 2",
-                isFavorite = true,
-                eventDescription = "Some text description should be here with most important informations about event"
-            ),
-            Event(
-                eventName = "Event name 3",
-                isFavorite = false,
-                eventDescription = "Some text description should be here with most important informations about event"
-            ),
-            Event(
-                eventName = "Event name 4",
-                isFavorite = false,
-                eventDescription = "Some text description should be here with most important informations about event"
-            ),
-            Event(
-                eventName = "Event name 5",
-                isFavorite = false,
-                eventDescription = "Some text description should be here with most important informations about event"
-            ),
-            Event(
-                eventName = "Event name 6",
-                isFavorite = false,
-                eventDescription = "Some text description should be here with most important informations about event"
-            ),
-            Event(
-                eventName = "Event name 7",
-                isFavorite = false,
-                eventDescription = "Some text description should be here with most important informations about event"
-            )
-        )
-
         binding.exploreEventsList.adapter = exploreEventsAdapter
 
-        CoroutineScope(Dispatchers.Main).launch {
-            binding.exploreIndeterminateBar.visibility = View.VISIBLE
-            delay(1000)
-            binding.exploreIndeterminateBar.visibility = View.GONE
-            exploreEventsAdapter.updateDataSet(allEventsList)
-            binding.exploreCitiesFilterResultsLabel.text = "${allEventsList.size} events found"
-        }
+        viewModel.states().observe(viewLifecycleOwner) { render(it) }
+
+        viewModel.processIntent(EventsIntent.FetchAllEvents)
     }
 
     override fun onConfirmClicked(filter: EventsFilter) {
-        //TODO fetch currently selected city and call viewModel in order to start fetching data
-        tempLoadFilteredEvents()
+        viewModel.processIntent(EventsIntent.FetchEvents(filter))
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding.exploreCityFilterSpinner.onItemSelectedListener = null
         _binding = null
-    }
-
-    private fun tempLoadFilteredEvents() {
-        val filteredEventsList = listOf(
-            Event(
-                eventName = "Filtered event",
-                isFavorite = false,
-                eventDescription = "Some text description should be here with most important informations about event"
-            ),
-            Event(
-                eventName = "Filtered event 2",
-                isFavorite = true,
-                eventDescription = "Some text description should be here with most important informations about event"
-            ),
-            Event(
-                eventName = "Filtered event 3",
-                isFavorite = false,
-                eventDescription = "Some text description should be here with most important informations about event"
-            )
-        )
-        CoroutineScope(Dispatchers.Main).launch {
-            binding.exploreIndeterminateBar.visibility = View.VISIBLE
-            delay(1000)
-            binding.exploreIndeterminateBar.visibility = View.GONE
-            exploreEventsAdapter.updateDataSet(filteredEventsList)
-            binding.exploreCitiesFilterResultsLabel.text = "${filteredEventsList.size} events found"
-        }
     }
 
     /**
@@ -160,7 +92,7 @@ class ExploreFragment : Fragment(), /*ChipGroup.OnCheckedStateChangeListener*/
         position: Int,
         id: Long
     ) {
-        //TODO call viewModel for query the events, if there is no both filters selected, then return INIT state
+        //TODO move spinner to the DialogFragment
 //        val citySelected = binding.exploreCityFilterSpinner.selectedItem
     }
 
@@ -173,5 +105,21 @@ class ExploreFragment : Fragment(), /*ChipGroup.OnCheckedStateChangeListener*/
             "${event.eventName} - favorite?: ${event.isFavorite}",
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    override fun render(state: EventsUIState) {
+        when (state) {
+            is EventsUIState.EventsFetched -> {
+                binding.exploreIndeterminateBar.visibility = View.GONE
+                exploreEventsAdapter.updateDataSet(state.data)
+            }
+
+            EventsUIState.EventsFetching -> binding.exploreIndeterminateBar.visibility =
+                View.VISIBLE
+
+            EventsUIState.EventsFetchingError -> {
+                binding.exploreIndeterminateBar.visibility = View.GONE
+            }
+        }
     }
 }

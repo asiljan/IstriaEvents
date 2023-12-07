@@ -51,6 +51,7 @@ class FilterEventsDialogFragment : DialogFragment(R.layout.dialog_filter_events)
 
             listener?.onConfirmClicked(
                 EventsFilter(
+                    cityId = "123",
                     includePaidEvents = false,
                     date = dateFilter
                 )

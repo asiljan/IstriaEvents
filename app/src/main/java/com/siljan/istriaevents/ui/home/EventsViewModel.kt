@@ -7,13 +7,17 @@ import androidx.lifecycle.viewModelScope
 import com.siljan.domain.models.Result
 import com.siljan.domain.usecases.GetAllEventsUseCase
 import com.siljan.istriaevents.common.BaseViewModel
+import com.siljan.istriaevents.ui.mappers.EventsMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EventsViewModel @Inject constructor(private val getEventsUseCase: GetAllEventsUseCase) :
+class EventsViewModel @Inject constructor(
+    private val getEventsUseCase: GetAllEventsUseCase,
+    private val uiMapper: EventsMapper) :
     ViewModel(), BaseViewModel<EventsIntent, EventsUIState> {
 
     private val _uiState: MutableLiveData<EventsUIState> = MutableLiveData()
@@ -31,9 +35,15 @@ class EventsViewModel @Inject constructor(private val getEventsUseCase: GetAllEv
                         )
                     }
 
-                is EventsIntent.FetchEvents -> {
-                    //TODO filtering
-                }
+                is EventsIntent.FetchEvents -> getEventsUseCase
+                    .execute(uiMapper.uiModelToDomain(intent.filter))
+                    .onStart { _uiState.postValue(EventsUIState.EventsFetching) }
+                    .collect{
+                        _uiState.postValue(
+                            if (it is Result.Success) EventsUIState.EventsFetched(it.data)
+                            else EventsUIState.EventsFetchingError
+                        )
+                    }
             }
         }
     }

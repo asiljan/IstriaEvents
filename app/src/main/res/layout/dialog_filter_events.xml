@@ -6,13 +6,37 @@
     android:background="@color/dirt_white"
     android:padding="@dimen/four_unit">
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/filterEventsChipsFilterGroup"
+    <TextView
+        android:id="@+id/filterEventsCityFilerLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/three_unit"
+        android:text="Select a city:"
+        android:textColor="@color/woodsmoke"
+        android:textSize="@dimen/app_text_size_three"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/filterEventsCityFilterSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/two_unit"
+        android:backgroundTint="@color/woodsmoke"
+        android:prompt="@string/onboarding_gender_list_title"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="@+id/filterEventsCityFilerLabel"
+        app:layout_constraintStart_toEndOf="@+id/filterEventsCityFilerLabel"
+        app:layout_constraintTop_toTopOf="@+id/filterEventsCityFilerLabel" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/filterEventsChipsFilterGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/three_unit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/filterEventsCityFilerLabel"
         app:singleLine="true"
         app:singleSelection="true">
 

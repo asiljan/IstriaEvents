@@ -2,6 +2,7 @@ package com.siljan.istriaevents.ui.models
 
 data class EventsFilter(
     val cityId: String,
+    val cityName: String,
     val includePaidEvents: Boolean,
     val date: DateFilter
 ) {

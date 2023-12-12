@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.CalendarConstraints
@@ -48,15 +49,28 @@ class FilterEventsDialogFragment : DialogFragment(R.layout.dialog_filter_events)
             else
                 EventsFilter.DateFilter.getFilter(chipDate)
 
+            var selectedCity = binding.filterEventsCityFilterSpinner.selectedItem.toString()
+            if(selectedCity == "--") selectedCity = ""
 
             listener?.onConfirmClicked(
                 EventsFilter(
                     cityId = "123",
+                    cityName = selectedCity,
                     includePaidEvents = false,
                     date = dateFilter
                 )
             )
             this.dismiss()
+        }
+
+        //TODO custom array adapter for data model class with city name and city ID fetched from the firebase
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.explore_cities_input,
+            R.layout.spinner_item
+        ).apply {
+            setDropDownViewResource(R.layout.spinner_dropdown_item)
+            binding.filterEventsCityFilterSpinner.adapter = this
         }
     }
 

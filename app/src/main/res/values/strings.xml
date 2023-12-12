@@ -39,6 +39,7 @@
         <item>Novigrad</item>
     </array>
 
+    <string name="events_label_found_events">%d events found</string>
     <string name="api_remote_calls_unknown_error">An unknown error occurred. Please try again later.</string>
 
     <!-- TODO: Remove or change this placeholder text -->

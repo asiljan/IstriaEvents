@@ -60,24 +60,28 @@ class LoginFragment : Fragment(), BaseView<LoginIntent, LoginUIState> {
     }
 
     override fun render(state: LoginUIState) {
-        when(state) {
+        when (state) {
             LoginUIState.UserLoggedIn -> {
                 binding.loginIndeterminateBar.visibility = View.GONE
                 launchHome()
             }
+
             is LoginUIState.UserLogInError -> {
                 binding.loginIndeterminateBar.visibility = View.GONE
                 binding.inputTextUsernameLayout.isErrorEnabled = true
-                when(state.error) {
+                when (state.error) {
                     LoginError.ErrorEmailEmpty, LoginError.ErrorEmailInvalid ->
-                        binding.inputTextUsernameLayout.error = requireActivity().getString(state.error.reasonId)
+                        binding.inputTextUsernameLayout.error =
+                            requireActivity().getString(state.error.reasonId)
+
                     LoginError.ErrorPasswordInvalid, LoginError.ErrorPasswordEmpty ->
-                        binding.inputTextPasswordLayout.error = requireActivity().getString(state.error.reasonId)
+                        binding.inputTextPasswordLayout.error =
+                            requireActivity().getString(state.error.reasonId)
+
                     else -> {
                         //TODO handle API errors with some generic text layout??
                     }
                 }
-//                binding.inputTextUsernameLayout.error = requireActivity().getString(state.reasonId)
             }
         }
     }

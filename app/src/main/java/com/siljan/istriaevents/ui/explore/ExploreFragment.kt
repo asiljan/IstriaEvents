@@ -1,15 +1,19 @@
 package com.siljan.istriaevents.ui.explore
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
+import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
 import com.siljan.domain.models.Event
 import com.siljan.istriaevents.R
 import com.siljan.istriaevents.common.BaseView
@@ -22,7 +26,7 @@ import com.siljan.istriaevents.ui.models.EventsFilter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ExploreFragment : Fragment(), OnItemSelectedListener, EventsAdapter.EventItemClick,
+class ExploreFragment : Fragment(), EventsAdapter.EventItemClick,
     FilterEventsDialogFragment.EventsDialogListener, BaseView<EventsIntent, EventsUIState> {
 
     private var _binding: FragmentExploreBinding? = null
@@ -42,8 +46,6 @@ class ExploreFragment : Fragment(), OnItemSelectedListener, EventsAdapter.EventI
 
         viewModel = ViewModelProvider(this)[EventsViewModel::class.java]
 
-        binding.exploreCityFilterSpinner.onItemSelectedListener = this
-
         return binding.root
     }
 
@@ -54,17 +56,15 @@ class ExploreFragment : Fragment(), OnItemSelectedListener, EventsAdapter.EventI
             FilterEventsDialogFragment().show(childFragmentManager, "filter_dialog")
         }
 
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.explore_cities_input,
-            R.layout.spinner_item
-        ).apply {
-            setDropDownViewResource(R.layout.spinner_dropdown_item)
-            binding.exploreCityFilterSpinner.adapter = this
+        binding.filterEventsClearFilters.setOnClickListener {
+            binding.exploreEventsSelectedFiltersGroup.removeAllViews()
+            binding.exploreCitiesHorizontalDivider.updateLayoutParams<ConstraintLayout.LayoutParams> {
+                topToBottom = binding.filterEventsBtnFilter.id
+            }
+            viewModel.processIntent(EventsIntent.FetchAllEvents)
+            binding.filterEventsBtnFilter.visibility = View.VISIBLE
+            it.visibility = View.GONE
         }
-
-//            binding.exploreCityFilterSpinner.setSelection(0)
-//            binding.exploreCitiesChipsFilterGroup.clearCheck()
 
         binding.exploreEventsList.adapter = exploreEventsAdapter
 
@@ -74,29 +74,31 @@ class ExploreFragment : Fragment(), OnItemSelectedListener, EventsAdapter.EventI
     }
 
     override fun onConfirmClicked(filter: EventsFilter) {
+        if (filter.cityName.isNotEmpty())
+            binding.exploreEventsSelectedFiltersGroup.addView(
+                createChip(
+                    requireContext(),
+                    filter.cityName
+                )
+            )
+
+        binding.exploreEventsSelectedFiltersGroup.addView(
+            createChip(requireContext(), filter.date.value)
+        )
+
+        binding.exploreCitiesHorizontalDivider.updateLayoutParams<ConstraintLayout.LayoutParams> {
+            topToBottom = binding.filterEventsClearFilters.id
+        }
+
+        binding.filterEventsBtnFilter.visibility = View.GONE
+        binding.filterEventsClearFilters.visibility = View.VISIBLE
+
         viewModel.processIntent(EventsIntent.FetchEvents(filter))
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding.exploreCityFilterSpinner.onItemSelectedListener = null
         _binding = null
-    }
-
-    /**
-     * Spinner callback which triggers when one of the possible entries are selected
-     */
-    override fun onItemSelected(
-        p0: AdapterView<*>?,
-        selectedItemView: View?,
-        position: Int,
-        id: Long
-    ) {
-        //TODO move spinner to the DialogFragment
-//        val citySelected = binding.exploreCityFilterSpinner.selectedItem
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
     }
 
     override fun onItemClicked(event: Event) {
@@ -110,16 +112,28 @@ class ExploreFragment : Fragment(), OnItemSelectedListener, EventsAdapter.EventI
     override fun render(state: EventsUIState) {
         when (state) {
             is EventsUIState.EventsFetched -> {
-                binding.exploreIndeterminateBar.visibility = View.GONE
-                exploreEventsAdapter.updateDataSet(state.data)
+                with(binding) {
+                    exploreIndeterminateBar.visibility = View.GONE
+                    exploreCitiesFilterResultsLabel.text = String.format(getString(R.string.events_label_found_events), state.data.size)
+                    exploreEventsAdapter.updateDataSet(state.data)
+                }
             }
 
             EventsUIState.EventsFetching -> binding.exploreIndeterminateBar.visibility =
                 View.VISIBLE
 
             EventsUIState.EventsFetchingError -> {
-                binding.exploreIndeterminateBar.visibility = View.GONE
+                with(binding) {
+                    exploreCitiesFilterResultsLabel.text = "--"
+                    exploreIndeterminateBar.visibility = View.GONE
+                }
             }
         }
+    }
+
+    private fun createChip(context: Context, chipName: String): Chip = Chip(context).apply {
+        text = chipName
+        chipBackgroundColor =
+            ColorStateList.valueOf(ContextCompat.getColor(context, R.color.green_secondary))
     }
 }

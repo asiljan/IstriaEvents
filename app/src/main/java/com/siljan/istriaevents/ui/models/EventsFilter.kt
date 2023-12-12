@@ -4,19 +4,24 @@ data class EventsFilter(
     val cityId: String,
     val cityName: String,
     val includePaidEvents: Boolean,
-    val date: DateFilter
+    val date: CustomDate
 ) {
+
+    data class CustomDate(
+        val dateFilter: DateFilter,
+        val range: Pair<Long, Long>
+    )
     sealed class DateFilter(val value: String) {
         object DateToday : DateFilter("Today")
         object DateTmrrw : DateFilter("Tomorrow")
         object DateWeekend : DateFilter("Weekend")
-        data class DateRange(val from: Long, val to: Long) : DateFilter("Custom")
+        object DateRange: DateFilter("Custom")
 
         companion object {
             fun getFilter(value: String): DateFilter =
                 DateFilter::class.sealedSubclasses
                     .map { it.objectInstance  }
-                    .find { ((it ?: DateToday).value == value) } ?: DateToday
+                    .find { it?.value == value } ?: DateToday
         }
     }
 }

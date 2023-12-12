@@ -17,6 +17,7 @@ import com.google.android.material.chip.ChipDrawable
 import com.siljan.domain.models.Event
 import com.siljan.istriaevents.R
 import com.siljan.istriaevents.common.BaseView
+import com.siljan.istriaevents.common.formatDate
 import com.siljan.istriaevents.databinding.FragmentExploreBinding
 import com.siljan.istriaevents.ui.home.EventsAdapter
 import com.siljan.istriaevents.ui.home.EventsIntent
@@ -82,9 +83,18 @@ class ExploreFragment : Fragment(), EventsAdapter.EventItemClick,
                 )
             )
 
-        binding.exploreEventsSelectedFiltersGroup.addView(
-            createChip(requireContext(), filter.date.value)
-        )
+        if(!filter.includePaidEvents) {
+            binding.exploreEventsSelectedFiltersGroup.addView(
+                createChip(requireContext(), "Free events")
+            )
+        }
+
+        val dateChipValue = if (filter.date.dateFilter == EventsFilter.DateFilter.DateRange)
+            "${filter.date.range.first.formatDate()} - ${filter.date.range.second.formatDate()}"
+        else
+            filter.date.dateFilter.value
+
+        binding.exploreEventsSelectedFiltersGroup.addView(createChip(requireContext(), dateChipValue))
 
         binding.exploreCitiesHorizontalDivider.updateLayoutParams<ConstraintLayout.LayoutParams> {
             topToBottom = binding.filterEventsClearFilters.id

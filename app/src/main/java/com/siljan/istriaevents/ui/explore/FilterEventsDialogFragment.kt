@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.siljan.istriaevents.R
+import com.siljan.istriaevents.common.createCustomDateRangePicker
 import com.siljan.istriaevents.databinding.DialogFilterEventsBinding
 import com.siljan.istriaevents.ui.models.EventsFilter
 
-class FilterEventsDialogFragment : DialogFragment(R.layout.dialog_filter_events) {
+class FilterEventsDialogFragment : DialogFragment(R.layout.dialog_filter_events),
+    ChipGroup.OnCheckedStateChangeListener {
 
     internal interface EventsDialogListener {
         fun onConfirmClicked(filter: EventsFilter)
@@ -22,6 +25,7 @@ class FilterEventsDialogFragment : DialogFragment(R.layout.dialog_filter_events)
 
     private var _binding: DialogFilterEventsBinding? = null
     private var listener: EventsDialogListener? = null
+    private var dateRange: Pair<Long, Long> = Pair(0L, 0L)
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -31,33 +35,30 @@ class FilterEventsDialogFragment : DialogFragment(R.layout.dialog_filter_events)
     ): View {
         _binding = DialogFilterEventsBinding.inflate(inflater, container, false)
 
-        val constraintsBuilder =
-            CalendarConstraints.Builder()
-                .setValidator(DateValidatorPointForward.now())
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.filterEventsChipsFilterGroup.setOnCheckedStateChangeListener(this)
+
         binding.filterEventsApplyButton.setOnClickListener {
             val chipDate = getSelectedDateChip(binding.filterEventsChipsFilterGroup.checkedChipId)
 
             val dateFilter = if (chipDate == null)
-                EventsFilter.DateFilter.DateRange(323232323, 23242334232)
-            else
-                EventsFilter.DateFilter.getFilter(chipDate)
+                EventsFilter.DateFilter.DateToday
+            else EventsFilter.DateFilter.getFilter(chipDate)
 
             var selectedCity = binding.filterEventsCityFilterSpinner.selectedItem.toString()
-            if(selectedCity == "--") selectedCity = ""
+            if (selectedCity == "--") selectedCity = ""
 
             listener?.onConfirmClicked(
                 EventsFilter(
                     cityId = "123",
                     cityName = selectedCity,
-                    includePaidEvents = false,
-                    date = dateFilter
+                    includePaidEvents = binding.filterEventsFreePaidEventsSwitch.isChecked,
+                    date = EventsFilter.CustomDate(dateFilter, dateRange)
                 )
             )
             this.dismiss()
@@ -88,6 +89,24 @@ class FilterEventsDialogFragment : DialogFragment(R.layout.dialog_filter_events)
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.filterEventsChipsFilterGroup.setOnCheckedStateChangeListener(null)
         _binding = null
+    }
+
+    override fun onCheckedChanged(group: ChipGroup, checkedIds: MutableList<Int>) {
+        binding.filterEventsChipsFilterGroup.findViewById<Chip>(binding.filterEventsChipsFilterGroup.checkedChipId)
+            ?.let {
+                if (it.id == R.id.chipFilterCustom) {
+
+                    val dialog = this.createCustomDateRangePicker(
+                        "Select start and end date",
+                        CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now()).build()
+                    )
+                    dialog.addOnPositiveButtonClickListener { selection ->
+                        dateRange = selection.first to selection.second
+                    }
+                    dialog.show(parentFragmentManager, "customDateRange")
+                }
+            }
     }
 }

@@ -38,7 +38,7 @@ class FirebaseEventsRepository(private val coroutineDispatcher: CoroutineDispatc
                 eventName = "Some Crazy Event 4",
                 isFavorite = true,
                 eventDescription = "Some text description should be here with most important informations about event"
-            ),
+            )
         )
 
     private fun reducedEvents() = listOf(
@@ -57,6 +57,19 @@ class FirebaseEventsRepository(private val coroutineDispatcher: CoroutineDispatc
             isFavorite = false,
             eventDescription = "Some text description should be here with most important informations about event"
         )
+    )
+
+    private fun favoritesEvents() = listOf(
+        Event(
+            eventName = "Some Crazy Event 2",
+            isFavorite = true,
+            eventDescription = "Some text description should be here with most important informations about event"
+        ),
+        Event(
+            eventName = "Some Crazy Event 4",
+            isFavorite = true,
+            eventDescription = "Some text description should be here with most important informations about event"
+        ),
     )
 
     override fun fetchTrendingEvents(): Flow<Result<List<Event>>> {
@@ -80,6 +93,12 @@ class FirebaseEventsRepository(private val coroutineDispatcher: CoroutineDispatc
             )
 
             emit(Result.Success(data) as Result<List<Event>>)
+        }.flowOn(coroutineDispatcher)
+    }
+
+    override fun fetchFavoritesEvents(): Flow<Result<List<Event>>> {
+        return flow {
+            emit(Result.Success(favoritesEvents()))
         }.flowOn(coroutineDispatcher)
     }
 }

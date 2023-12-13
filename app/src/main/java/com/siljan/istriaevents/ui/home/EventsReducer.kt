@@ -13,5 +13,8 @@ sealed class EventsUIState : BaseViewState {
 
 sealed class EventsIntent : BaseIntent {
     object FetchAllEvents : EventsIntent()
+
+    object FetchFavoritesEvents : EventsIntent()
+//    object FetchTrendingEvents : EventsIntent()
     data class FetchEvents(val filter: EventsFilter) : EventsIntent()
 }

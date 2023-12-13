@@ -8,4 +8,6 @@ import kotlinx.coroutines.flow.Flow
 interface EventsRepository {
     fun fetchEvents(filter: EventsFilter? = null): Flow<Result<List<Event>>>
     fun fetchTrendingEvents(): Flow<Result<List<Event>>>
+
+    fun fetchFavoritesEvents(): Flow<Result<List<Event>>>
 }

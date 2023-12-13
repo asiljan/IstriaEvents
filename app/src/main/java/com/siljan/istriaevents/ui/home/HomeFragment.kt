@@ -14,9 +14,11 @@ import com.siljan.istriaevents.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), EventsAdapter.EventItemClick, BaseView<EventsIntent, EventsUIState> {
+class HomeFragment : Fragment(), EventsAdapter.EventItemClick,
+    BaseView<EventsIntent, EventsUIState> {
 
     private var _binding: FragmentHomeBinding? = null
+
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
 
@@ -72,12 +74,13 @@ class HomeFragment : Fragment(), EventsAdapter.EventItemClick, BaseView<EventsIn
             }
         })
 
-        binding.homePopularEventsList.layoutManager = horizontalLayoutManager
-        binding.homePopularEventsList.adapter = popularEventsAdapter
+        with(binding) {
+            homePopularEventsList.layoutManager = horizontalLayoutManager
+            homePopularEventsList.adapter = popularEventsAdapter
+            eventsList.adapter = eventsAdapter
+        }
 
-        binding.eventsList.adapter = eventsAdapter
-
-        viewModel.states().observe(viewLifecycleOwner) {render(it)}
+        viewModel.states().observe(viewLifecycleOwner) { render(it) }
 
         viewModel.processIntent(EventsIntent.FetchAllEvents)
     }
@@ -88,15 +91,20 @@ class HomeFragment : Fragment(), EventsAdapter.EventItemClick, BaseView<EventsIn
     }
 
     override fun onItemClicked(event: Event) {
-        Toast.makeText(requireContext(), "${event.eventName} - favorite?: ${event.isFavorite}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            requireContext(),
+            "${event.eventName} - favorite?: ${event.isFavorite}",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 
     override fun render(state: EventsUIState) {
-        when(state) {
+        when (state) {
             is EventsUIState.EventsFetched -> {
                 binding.eventsIndeterminateBar.visibility = View.GONE
                 eventsAdapter.updateDataSet(state.data)
             }
+
             EventsUIState.EventsFetching -> binding.eventsIndeterminateBar.visibility = View.VISIBLE
             EventsUIState.EventsFetchingError -> {
                 binding.eventsIndeterminateBar.visibility = View.GONE

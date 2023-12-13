@@ -5,6 +5,7 @@ import com.siljan.domain.repositories.UserRepository
 import com.siljan.domain.usecases.AuthenticateUserUseCase
 import com.siljan.domain.usecases.CheckUserUseCase
 import com.siljan.domain.usecases.GetAllEventsUseCase
+import com.siljan.domain.usecases.GetFavoriteEventsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,5 +31,11 @@ class UseCasesProvider {
     @ViewModelScoped
     fun provideEventsUseCase(eventsRepository: EventsRepository): GetAllEventsUseCase {
         return GetAllEventsUseCase(eventsRepository)
+    }
+
+    @Provides
+    @ViewModelScoped
+    fun provideFavoriteEventsUseCase(eventsRepository: EventsRepository): GetFavoriteEventsUseCase {
+        return GetFavoriteEventsUseCase(eventsRepository)
     }
 }

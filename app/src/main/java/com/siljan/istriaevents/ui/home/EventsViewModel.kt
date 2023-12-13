@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.siljan.domain.models.Result
 import com.siljan.domain.usecases.GetAllEventsUseCase
+import com.siljan.domain.usecases.GetFavoriteEventsUseCase
 import com.siljan.istriaevents.common.BaseViewModel
 import com.siljan.istriaevents.ui.mappers.EventsMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EventsViewModel @Inject constructor(
     private val getEventsUseCase: GetAllEventsUseCase,
+    private val getFavoriteEventsUseCase: GetFavoriteEventsUseCase,
     private val uiMapper: EventsMapper) :
     ViewModel(), BaseViewModel<EventsIntent, EventsUIState> {
 
@@ -37,6 +39,16 @@ class EventsViewModel @Inject constructor(
 
                 is EventsIntent.FetchEvents -> getEventsUseCase
                     .execute(uiMapper.uiModelToDomain(intent.filter))
+                    .onStart { _uiState.postValue(EventsUIState.EventsFetching) }
+                    .collect{
+                        _uiState.postValue(
+                            if (it is Result.Success) EventsUIState.EventsFetched(it.data)
+                            else EventsUIState.EventsFetchingError
+                        )
+                    }
+
+                EventsIntent.FetchFavoritesEvents -> getFavoriteEventsUseCase
+                    .execute()
                     .onStart { _uiState.postValue(EventsUIState.EventsFetching) }
                     .collect{
                         _uiState.postValue(

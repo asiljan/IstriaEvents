@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.siljan.domain.models.Event
+import com.siljan.istriaevents.R
 import com.siljan.istriaevents.common.BaseView
 import com.siljan.istriaevents.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +36,7 @@ class HomeFragment : Fragment(), EventsAdapter.EventItemClick,
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
@@ -96,6 +98,8 @@ class HomeFragment : Fragment(), EventsAdapter.EventItemClick,
             "${event.eventName} - favorite?: ${event.isFavorite}",
             Toast.LENGTH_SHORT
         ).show()
+
+        findNavController().navigate(R.id.action_nav_home_to_eventDetailsFragment)
     }
 
     override fun render(state: EventsUIState) {

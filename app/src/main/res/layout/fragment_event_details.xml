@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/eventDetailsImageView"
+        android:layout_width="0dp"
+        android:layout_height="324dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_events_placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:background="@drawable/event_card_gradient"
+        app:layout_constraintEnd_toEndOf="@+id/eventDetailsImageView"
+        app:layout_constraintStart_toStartOf="@+id/eventDetailsImageView"
+        app:layout_constraintTop_toTopOf="@+id/eventDetailsImageView" />
+
+    <TextView
+        android:id="@+id/eventDetailsTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/four_unit"
+        android:paddingTop="@dimen/four_unit"
+        android:text="Crazy event at Arena Pula"
+        android:textColor="@color/dirt_white"
+        android:textSize="@dimen/app_text_size_five"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/eventDetailsDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/app_text_size_three"
+        android:text="15.12.2023 at 21:00"
+        android:textColor="@color/dirt_white"
+        android:textSize="@dimen/app_text_size_four"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventDetailsTitle" />
+
+    <ImageView
+        android:id="@+id/eventDetailsFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/four_unit"
+        android:src="@drawable/ic_favorite_unchecked"
+        app:layout_constraintEnd_toStartOf="@+id/eventDetailsShare"
+        app:layout_constraintTop_toTopOf="@+id/eventDetailsImageView"
+        app:tint="@color/dirt_white" />
+
+    <ImageView
+        android:id="@+id/eventDetailsShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/four_unit"
+        android:src="@drawable/ic_share"
+        app:layout_constraintEnd_toEndOf="@+id/eventDetailsImageView"
+        app:layout_constraintTop_toTopOf="@+id/eventDetailsImageView"
+        app:tint="@color/dirt_white" />
+
+    <TextView
+        android:id="@+id/eventDetailsDescriptionTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/four_unit"
+        android:paddingStart="@dimen/three_unit"
+        android:text="Event details"
+        android:textSize="@dimen/app_text_size_four"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventDetailsImageView" />
+
+    <TextView
+        android:id="@+id/eventDetailsDescriptionLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/four_unit"
+        android:padding="@dimen/three_unit"
+        android:text="Some crazy dummy large text... Some crazy dummy large text... Some crazy dummy large text... Some crazy dummy large text... Some crazy dummy large text... Some crazy dummy large text... Some crazy dummy large text... Some crazy dummy large text... Some crazy dummy large text... Some crazy dummy large text... "
+        android:textSize="@dimen/app_text_size_four"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventDetailsDescriptionTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

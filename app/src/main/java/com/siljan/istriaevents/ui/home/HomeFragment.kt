@@ -56,16 +56,19 @@ class HomeFragment : Fragment(), EventsAdapter.EventItemClick,
 
         val popularEventsAdapter = PopularEventsAdapter(arrayOf(
             Event(
+                eventId = "123412121",
                 eventName = "Craazy Popular Event 1",
                 isFavorite = false,
                 eventDescription = "Some text description should be here with most important informations about event"
             ),
             Event(
+                eventId = "123412121",
                 eventName = "Craazy Popular Event 1",
                 isFavorite = false,
                 eventDescription = "Some text description should be here with most important informations about event"
             ),
             Event(
+                eventId = "123412121",
                 eventName = "Craazy Popular Event 1",
                 isFavorite = false,
                 eventDescription = "Some text description should be here with most important informations about event"
@@ -93,13 +96,15 @@ class HomeFragment : Fragment(), EventsAdapter.EventItemClick,
     }
 
     override fun onItemClicked(event: Event) {
+        findNavController().navigate(R.id.action_nav_home_to_eventDetailsFragment)
+    }
+
+    override fun onFavoriteIconClicked(eventId: String) {
         Toast.makeText(
             requireContext(),
-            "${event.eventName} - favorite?: ${event.isFavorite}",
+            "EVENT: $eventId - favorite toggled",
             Toast.LENGTH_SHORT
         ).show()
-
-        findNavController().navigate(R.id.action_nav_home_to_eventDetailsFragment)
     }
 
     override fun render(state: EventsUIState) {

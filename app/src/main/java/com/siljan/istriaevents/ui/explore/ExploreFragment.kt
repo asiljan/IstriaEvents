@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipDrawable
 import com.siljan.domain.models.Event
@@ -112,9 +113,13 @@ class ExploreFragment : Fragment(), EventsAdapter.EventItemClick,
     }
 
     override fun onItemClicked(event: Event) {
+        findNavController().navigate(R.id.action_nav_explore_to_eventDetailsFragment)
+    }
+
+    override fun onFavoriteIconClicked(eventId: String) {
         Toast.makeText(
             requireContext(),
-            "${event.eventName} - favorite?: ${event.isFavorite}",
+            "EVENT: $eventId - favorite toggled",
             Toast.LENGTH_SHORT
         ).show()
     }

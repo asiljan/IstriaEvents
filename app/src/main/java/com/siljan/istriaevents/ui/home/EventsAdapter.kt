@@ -13,11 +13,11 @@ class EventsAdapter(private val clickListener: EventItemClick) :
     private var dataSet: List<Event> = emptyList()
     interface EventItemClick {
         fun onItemClicked(event: Event)
+        fun onFavoriteIconClicked(eventId: String)
     }
 
     inner class ViewHolder(private val binding: ItemEventCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
             fun bind(event: Event, clickListener: EventItemClick) {
 
                 binding.itemEventTitle.text = event.eventName
@@ -31,7 +31,8 @@ class EventsAdapter(private val clickListener: EventItemClick) :
                     binding.itemEventBtnFavorite.setColorFilter(itemView.context.resources.getColor(R.color.dirt_white))
                 }
 
-                binding.itemEventBtnFavorite.setOnClickListener { clickListener.onItemClicked(event) }
+                binding.itemEventBtnFavorite.setOnClickListener { clickListener.onFavoriteIconClicked(event.eventId) }
+                binding.itemEventHolder.setOnClickListener { clickListener.onItemClicked(event) }
             }
     }
 
